@@ -1,5 +1,7 @@
 const fs = require('fs')
 const http = require('http')
+const url = require('url')
+
 
 // ////////////////////////////////////////////////////////////////
 // FILES
@@ -32,7 +34,21 @@ const http = require('http')
 // SERVER
 
 const server = http.createServer((req, res) => {
-  res.end('Hello from the server!')
+  const pathName = req.url
+
+  if (pathName === '/' || pathName === '/overview') {
+    res.end('this si the overview')
+  } else if (pathName === '/product') {
+    res.end('This is the PRODuct')
+  } else {
+    res.writeHead(404, {
+      'Content-type': 'text/html',
+      // passes meta data with personal headers
+      'my-own-header': 'hello world'
+
+    })
+    res.end('<h1>this page not found</h1>')
+  }
 })
 
 server.listen(8000, '127.0.0.1', () => {
