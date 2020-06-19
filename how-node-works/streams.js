@@ -11,18 +11,23 @@ server.on('request', (req, res) => {
 
   // Solution 2: Streams
   // streams it in pieces ratehr than sending all at once
-  const readable = fs.createReadStream('testt-file.txt')
-  readable.on('data', (chunk) => {
-    res.write(chunk)
-  })
-  readable.on('end', () => {
-    res.end()
-  })
-  readable.on('error', (err) => {
-    console.log(err)
-    res.statusCode = 500
-    res.end('File not found!')
-  })
+  // const readable = fs.createReadStream('test-file.txt')
+  // readable.on('data', (chunk) => {
+  //   res.write(chunk)
+  // })
+  // readable.on('end', () => {
+  //   res.end()
+  // })
+  // readable.on('error', (err) => {
+  //   console.log(err)
+  //   res.statusCode = 500
+  //   res.end('File not found!')
+  // })
+
+  // Solution 3
+  const readable = fs.createReadStream('test-file.txt')
+  readable.pipe(res)
+  // readable soure use the pipe on it and the pipe makes it a writeable destination which is the response
 })
 
 server.listen(8000, '127.0.0.1', () => {
