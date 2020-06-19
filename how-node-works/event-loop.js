@@ -4,6 +4,8 @@ const crypto = require('crypto')
 const start = Date.now()
 process.env.UV_THREADPOOL_SIZE = 6
 
+console.log('hello form top 1')
+
 setTimeout(() => console.log('timer 1 finished'), 0)
 setImmediate(() => console.log('immediate 1 finished'))
 
